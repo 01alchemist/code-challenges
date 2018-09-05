@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700">
+    <title>
+        CSV Tool
+    </title>
+    <style>
+        body {
+            border: 0;
+            margin: 0;
+            font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        .app-container {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            position: absolute;
+        }
+
+        .app-title {
+            padding: 10px 20px;
+            display: block;
+            position: relative;
+            color: white;
+            background: #2f3342;
+        }
+
+        .app-content {
+            height: calc(100% - 160px);
+            position: relative;
+            display: grid;
+            grid-template-columns: 10px auto auto 10px;
+            grid-template-rows: auto;
+            grid-template-areas: "pad-l column1 column2 pad-r";
+            grid-gap: 10px;
+            padding: 10px 0;
+        }
+
+        .input-wrapper {
+            display: inline-block;
+            position: relative;
+            grid-area: column1;
+        }
+
+        .output-wrapper {
+            display: inline-block;
+            position: relative;
+            grid-area: column2;
+        }
+
+        .data-block-title {
+            padding: 0 0 10px 0;
+        }
+
+        .app-actions {
+            width: 100%;
+            height: 50px;
+            display: block;
+            position: absolute;
+            bottom: 0;
+            border-top: 1px solid #d6d6d6;
+        }
+
+        .button-group {
+            position: absolute;
+            right: 0;
+            padding: 10px;
+        }
+
+        .button {
+            padding: 7px 15px;
+            font-size: 12px;
+            border-radius: 3px;
+            display: inline-block;
+            line-height: 1;
+            white-space: nowrap;
+            cursor: pointer;
+            background: #fff;
+            border: 1px solid #dcdfe6;
+            border-color: #dcdfe6;
+            color: #606266;
+            -webkit-appearance: none;
+            text-align: center;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            outline: none;
+            margin: 0;
+            -webkit-transition: .1s;
+            transition: .1s;
+            font-weight: 500;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            color: white;
+            background: #409EFF;
+        }
+
+        .upload-btn input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
+
+        .text-area {
+            width: 100%;
+            height: 100%;
+            resize: none;
+            padding: unset;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="app-title">CSV Tool</div>
+        <div class="app-content">
+            <div class="input-wrapper">
+                <div class="data-block-title">Input</div>
+                <textarea id="input-field" class="text-area" readonly></textarea>
+            </div>
+            <div class="output-wrapper">
+                <div class="data-block-title">Output</div>
+                <textarea id="output-field" class="text-area" readonly></textarea>
+            </div>
+        </div>
+        <div class="app-actions">
+            <div class="button-group">
+                <button type="button" class="button upload-btn">
+                    <span>Select CSV File</span>
+                    <input type="file" id="file-browser" />
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

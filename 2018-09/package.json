@@ -1,0 +1,28 @@
+{
+    "name": "cc-2018-09",
+    "version": "1.0.0",
+    "license": "MIT",
+    "private": true,
+    "engines": {
+        "node": "8"
+    },
+    "workspaces": [
+        "packages/**"
+    ],
+    "scripts": {
+        "install": "yarn build",
+        "launch": "ts-node --project ../scripts/tsconfig.json ../scripts/launch.ts",
+        "build": "yarn build.part-1 && yarn build.part-2",
+        "build.part-1": "yarn launch yarn build --cwd=./packages/part-1",
+        "build.part-2": "yarn launch yarn build --cwd=./packages/part-2",
+        "watch.part-1": "yarn launch yarn watch --cwd=./packages/part-1",
+        "watch.part-2": "yarn launch yarn watch --cwd=./packages/part-2",
+        "test.part-1": "yarn launch yarn test --cwd=./packages/part-1",
+        "test.part-2": "yarn launch yarn test --cwd=./packages/part-2",
+        "start.part-1": "yarn launch yarn start --cwd=./packages/part-1"
+    },
+    "devDependencies": {
+        "@types/node": "^8.9.3",
+        "ts-node": "^7.0.1"
+    }
+}

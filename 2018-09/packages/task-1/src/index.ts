@@ -4,9 +4,12 @@
 import { Terminal } from '~common/utils';
 const App = require('./app').default;
 
-App();
-
-Terminal.info('App initialized');
+if (window) {
+    window.onload = () => {
+        App();
+        Terminal.info('App initialized');
+    };
+}
 
 if (process.env.NODE_ENV === 'development') {
     if (module['hot']) {

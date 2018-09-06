@@ -84,7 +84,7 @@ export default async function launch(options?) {
                 process.exit(code);
             } else {
                 console.log(`[${instance.name}] exit code:${code}`);
-                code == 0 ? resolve(lastData) : reject(lastErrorData);
+                code === 0 ? resolve(lastData) : reject(lastErrorData);
             }
         });
     });

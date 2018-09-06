@@ -5,8 +5,9 @@ const nodeExternals = require('webpack-node-externals');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const packageJson = require('./package.json');
 
-const outDir = '../../dist/part-2';
-const mode = 'development';
+const rootDir = path.resolve(__dirname, '../../');
+const outDir = '../../dist/task-2';
+const mode = process.env.NODE_ENV || 'development';
 const isDevMode = mode === 'development';
 
 const entries = ['./src/index.ts'];
@@ -32,7 +33,7 @@ module.exports = {
         },
     },
     plugins: [
-        new CleanWebpackPlugin([path.resolve(__dirname, outDir)]),
+        new CleanWebpackPlugin([path.resolve(__dirname, outDir)], { root: rootDir }),
         new webpack.DefinePlugin({
             VERSION: JSON.stringify(packageJson.version),
         }),

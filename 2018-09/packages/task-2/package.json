@@ -1,12 +1,21 @@
 {
-    "name": "part-2",
+    "name": "task-2",
     "version": "1.0.0",
     "main": "src/index.ts",
     "license": "MIT",
+    "bin": {
+        "b-tree": "./bin/b-tree"
+    },
     "scripts": {
+        "link": "yarn link",
+        "unlink": "yarn unlink",
+        "start": "node ../../dist/task-2/index.js",
         "build": "webpack",
         "watch": "webpack --watch",
         "test": "jest --config jest.json"
+    },
+    "dependencies": {
+        "chalk": "^2.4.1"
     },
     "devDependencies": {
         "@types/jest": "^23.3.1",
@@ -16,7 +25,6 @@
         "jest-cli": "^23.5.0",
         "webpack": "^4.17.2",
         "webpack-cli": "^3.1.0",
-        "webpack-dev-server": "^3.1.7",
         "webpack-node-externals": "^1.7.2",
         "clean-webpack-plugin": "^0.1.19",
         "typescript": "^3.0.3",

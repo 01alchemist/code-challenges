@@ -10,16 +10,20 @@
         "packages/**"
     ],
     "scripts": {
-        "install": "yarn build",
+        "postinstall": "yarn build && yarn run link",
+        "link": "yarn launch yarn run link --cwd=./packages/task-2",
+        "unlink": "yarn launch yarn run unlink --cwd=./packages/task-2",
         "launch": "ts-node --project ../scripts/tsconfig.json ../scripts/launch.ts",
-        "build": "yarn build.part-1 && yarn build.part-2",
-        "build.part-1": "yarn launch yarn build --cwd=./packages/part-1",
-        "build.part-2": "yarn launch yarn build --cwd=./packages/part-2",
-        "watch.part-1": "yarn launch yarn watch --cwd=./packages/part-1",
-        "watch.part-2": "yarn launch yarn watch --cwd=./packages/part-2",
-        "test.part-1": "yarn launch yarn test --cwd=./packages/part-1",
-        "test.part-2": "yarn launch yarn test --cwd=./packages/part-2",
-        "start.part-1": "yarn launch yarn start --cwd=./packages/part-1"
+        "build": "yarn build.task-1 && yarn build.task-2",
+        "build.task-1": "yarn launch yarn build --cwd=./packages/task-1",
+        "build.task-2": "yarn launch yarn build --cwd=./packages/task-2",
+        "watch.task-1": "yarn launch yarn watch --cwd=./packages/task-1",
+        "watch.task-2": "yarn launch yarn watch --cwd=./packages/task-2",
+        "test": "yarn test.task-1 && yarn test.task-2",
+        "test.task-1": "yarn launch yarn test --cwd=./packages/task-1",
+        "test.task-2": "yarn launch yarn test --cwd=packages/task-2",
+        "start.task-1": "yarn launch yarn start --cwd=./packages/task-1",
+        "start.task-2": "yarn launch yarn start --cwd=./packages/task-2"
     },
     "devDependencies": {
         "@types/node": "^8.9.3",

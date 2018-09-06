@@ -1,8 +1,5 @@
 {
     "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "baseUrl": "."
-    },
     "exclude": ["**/__tests__/*", "**/*.spec.ts"],
     "include": ["src"]
 }

@@ -6,8 +6,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const packageJson = require('./package.json');
-
-const outDir = '../../dist/part-1';
+const rootDir = path.resolve(__dirname, '../../');
+const outDir = '../../dist/task-1';
 const mode = 'development';
 const isDevMode = mode === 'development';
 
@@ -38,7 +38,7 @@ module.exports = {
         },
     },
     plugins: [
-        new CleanWebpackPlugin([path.resolve(__dirname, outDir)]),
+        new CleanWebpackPlugin([path.resolve(__dirname, outDir)], { root: rootDir }),
         new webpack.DefinePlugin({
             VERSION: JSON.stringify(packageJson.version),
         }),

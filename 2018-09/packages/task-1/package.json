@@ -1,5 +1,5 @@
 {
-    "name": "part-1",
+    "name": "task-1",
     "version": "1.0.0",
     "main": "src/index.ts",
     "license": "MIT",
@@ -9,6 +9,7 @@
         "watch": "webpack --watch",
         "test": "jest --config jest.json"
     },
+    "dependencies": {},
     "devDependencies": {
         "@types/jest": "^23.3.1",
         "babel-core": "^6.26.3",

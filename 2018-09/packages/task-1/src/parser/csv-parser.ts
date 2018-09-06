@@ -15,13 +15,13 @@ type ParserOptions = {
  * @param options
  */
 export async function parse(data, options: ParserOptions = {}) {
-    if (!data || data == '') {
+    if (!data || data === '') {
         throw 'Invalid input data!';
     }
     if (!options.delimiter) {
         const stringData = data.toString('utf-8');
         const firstLine =
-            stringData.indexOf('\n') == -1 ? stringData : stringData.substring(0, stringData.indexOf('\n'));
+            stringData.indexOf('\n') === -1 ? stringData : stringData.substring(0, stringData.indexOf('\n'));
         const cl = firstLine.split(',');
         const scl = firstLine.split(';');
         const sl = firstLine.split(' ');

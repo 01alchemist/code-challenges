@@ -71,6 +71,52 @@ describe('CSV Parser test suit', () => {
         done();
     });
 
+    test('It should parse csv with inferred space delimiter', async done => {
+        const input = `2 4 99`;
+        const row = { 0: 2, 1: 4, 2: 99 };
+        const expected = [row];
+        const { rows: output } = await parse(input, { columnMapping, emitObject: true });
+        expect(output).toEqual(expected);
+        done();
+    });
+
+    test('It should parse csv with inferred comma delimiter', async done => {
+        const input = `2,4,99`;
+        const row = { 0: 2, 1: 4, 2: 99 };
+        const expected = [row];
+        const { rows: output } = await parse(input, { columnMapping, emitObject: true });
+        expect(output).toEqual(expected);
+        done();
+    });
+
+    test('It should parse multi row csv with inferred space delimiter', async done => {
+        const input = `2 4 99
+2 4 99
+2 4 99
+2 4 99
+2 4 99
+`;
+        const row = { 0: 2, 1: 4, 2: 99 };
+        const expected = [row, row, row, row, row];
+        const { rows: output } = await parse(input, { columnMapping, emitObject: true });
+        expect(output).toEqual(expected);
+        done();
+    });
+
+    test('It should parse multi row csv with inferred comma delimiter', async done => {
+        const input = `2,4,99
+2,4,99
+2,4,99
+2,4,99
+2,4,99
+`;
+        const row = { 0: 2, 1: 4, 2: 99 };
+        const expected = [row, row, row, row, row];
+        const { rows: output } = await parse(input, { columnMapping, emitObject: true });
+        expect(output).toEqual(expected);
+        done();
+    });
+
     test('It should filter bad values with space delimiter', async done => {
         const input = `3 0 5`;
         const expected = [[3, 4, 5]];

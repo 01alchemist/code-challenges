@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CSV Parser test suit It should filter heavy bad values with comma delimiter 1`] = `
+exports[`CSV Parser test suite It should filter heavy bad values with comma delimiter 1`] = `
 Array [
   Array [
     2,
@@ -5255,7 +5255,7 @@ Array [
 ]
 `;
 
-exports[`CSV Parser test suit It should filter heavy bad values with space delimiter 1`] = `
+exports[`CSV Parser test suite It should filter heavy bad values with space delimiter 1`] = `
 Array [
   Array [
     NaN,

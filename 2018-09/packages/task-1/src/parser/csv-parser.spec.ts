@@ -10,7 +10,7 @@ const heavyInputSpace = fs.readFileSync(path.resolve(__dirname, './__mocks__/tes
 const mapper = value => ({ value: +value });
 const columnMapping = [mapper, mapper, mapper];
 
-describe('CSV Parser test suit', () => {
+describe('CSV Parser test suite', () => {
     test('It should parse basic csv with space delimiter', async done => {
         const input = `2 4 99`;
         const expected = [{ 0: 2, 1: 4, 2: 99 }];

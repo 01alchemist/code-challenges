@@ -1,7 +1,7 @@
 import { constructBinaryTree } from '..';
 import { printNode } from '../b-tree';
 
-describe('Binary tree test suit', () => {
+describe('Binary tree test suite', () => {
     test('Basic test 0', () => {
         const input = '';
         const root = constructBinaryTree(input);

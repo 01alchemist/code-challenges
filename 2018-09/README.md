@@ -6,8 +6,9 @@
 - Yarn (1.7.0+)
 
 ## How to build
-
+Clone the respository
 ```bash
+cd path/to/cloned_repo
 cd 2018-09
 yarn
 ```

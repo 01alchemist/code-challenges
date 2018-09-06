@@ -36,8 +36,13 @@ b-tree --input=path/to/input/file.txt
 
 # Help argument
 b-tree --help
-
 ```
+
+##### Command Line Arguments
+
+- Help:  `--help`
+- Input file:  `--input=path/to/input/file.txt`
+- Disable print:  `--print=false` # (default is true)
 
 ## Packages
 

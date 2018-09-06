@@ -1,9 +1,12 @@
 /**
- * Created by n.vinayakan on 06.06.17.
+ * Author : Nidin Vinayakan <01@01alchemist.com>
  */
 //tslint:disable-next-line
-export const isBrowser = new Function("try {return this===window;}catch(e){ return false;}")();
+export const isBrowser = new Function('try {return this===window;}catch(e){ return false;}')();
 //tslint:disable-next-line
-export const isWorker = new Function("try {return this===self && typeof importScripts !== 'undefined';}catch(e){return false;}")();
+export const isWorker = new Function(
+    "try {return this===self && typeof importScripts !== 'undefined';}catch(e){return false;}",
+)();
 //tslint:disable-next-line
-export const isNode = typeof global !== "undefined" && typeof process !== "undefined" && typeof process.stdout !== "undefined";
+export const isNode =
+    typeof global !== 'undefined' && typeof process !== 'undefined' && typeof process.stdout !== 'undefined';

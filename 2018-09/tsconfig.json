@@ -1,11 +1,7 @@
 {
     "compilerOptions": {
         "target": "es2015",
-        "lib": [
-            "dom",
-            "es2017",
-            "esnext.asynciterable"
-        ],
+        "lib": ["dom", "es2017", "esnext.asynciterable"],
         "module": "commonjs",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
@@ -17,9 +13,10 @@
         "skipLibCheck": true,
         "outDir": "dist",
         "moduleResolution": "node",
-        "baseUrl": "."
+        "baseUrl": ".",
+        "paths": {
+            "~common": ["../common"]
+        }
     },
-    "exclude": [
-        "node_modules"
-    ]
+    "exclude": ["node_modules"]
 }

@@ -1,11 +1,38 @@
+/**
+ * Author : Nidin Vinayakan <01@01alchemist.com>
+ */
+import { Terminal } from '~common/utils';
+
 type ParserOptions = {
     delimiter?: string | RegExp;
     emitObject?: boolean;
     regenerateMissingData?: boolean;
     columnMapping?;
 };
-
+/**
+ * Parse CSV from utf-8 string or Buffer
+ * @param data
+ * @param options
+ */
 export async function parse(data, options: ParserOptions = {}) {
+    if (!data) {
+        throw 'Invalid input data!';
+    }
+    if (!options.delimiter) {
+        const stringData = data.toString('utf-8');
+        const firstLine = stringData.substring(0, stringData.indexOf('\n'));
+        const cl = firstLine.split(',');
+        const scl = firstLine.split(';');
+        const sl = firstLine.split(' ');
+        if (firstLine.indexOf(',') > -1 && cl >= sl) {
+            options.delimiter = ',';
+        } else if (firstLine.indexOf(';') > -1 && scl >= sl) {
+            options.delimiter = ';';
+        } else if (firstLine.indexOf(' ') > -1) {
+            options.delimiter = ' ';
+        }
+        Terminal.warn(`No delimiter provided, Delimiter inferred to '${options.delimiter}' from input data`);
+    }
     const parser = new Parser(options);
     return new Promise<Parser>(function(resolve, reject) {
         parser._write(data, 'utf-8', () => {
@@ -13,8 +40,15 @@ export async function parse(data, options: ParserOptions = {}) {
         });
     });
 }
-
+/**
+ * Parse CSV from readable stream
+ * @param readStream
+ * @param options
+ */
 export async function parseStream(readStream, options: ParserOptions = {}) {
+    if (!readStream || !readStream.pipe) {
+        throw 'Input is not a stream!';
+    }
     const parser = new Parser(options);
     readStream.pipe(parser);
     return new Promise(function(resolve, reject) {
@@ -35,6 +69,9 @@ self['Writable'] =
     class {
         on() {}
     };
+/**
+ * CSV parser with stream support
+ */
 class Parser extends self['Writable'] {
     rows: any[];
     originalRows: any[];
@@ -60,8 +97,8 @@ class Parser extends self['Writable'] {
         const delimiter = this._options.delimiter || ',';
         const rows = _rows.map(row => mapColumns(row.split(delimiter), this._options.columnMapping, this._options));
         this.rows.push.apply(this.rows, rows);
-        this.originalRows = this.rows.map(item => item.concat());
         if (this._options.regenerateMissingData) {
+            this.originalRows = this.rows.map(item => (item instanceof Array ? item.concat() : { ...item }));
             let loop;
             let maxDepth = 2;
             // Interpolating invalid data from the surrounding values
@@ -105,6 +142,8 @@ class Parser extends self['Writable'] {
                     loop = true;
                 }
             } while (loop);
+        } else {
+            this.originalRows = this.rows;
         }
         if (callback) callback();
     }

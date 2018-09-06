@@ -103,10 +103,11 @@
             background: #409EFF;
         }
 
-        .upload-btn input[type=file] {
-            font-size: 100px;
-            position: absolute;
-            left: 0;
+        .hidden-element {
+            position: fixed;
+            width: 0;
+            height: 0;
+            left: -10000;
             top: 0;
             opacity: 0;
         }
@@ -121,6 +122,9 @@
 </head>
 
 <body>
+    <!-- Hidden file input -->
+    <input class="hidden-element" type="file" id="file-browser" />
+    <!-- App container -->
     <div class="app-container">
         <div class="app-title">CSV Tool</div>
         <div class="app-content">
@@ -135,9 +139,8 @@
         </div>
         <div class="app-actions">
             <div class="button-group">
-                <button type="button" class="button upload-btn">
+                <button id="file-browser-btn" type="button" class="button browse-btn">
                     <span>Select CSV File</span>
-                    <input type="file" id="file-browser" />
                 </button>
             </div>
         </div>

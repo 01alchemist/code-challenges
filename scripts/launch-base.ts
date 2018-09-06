@@ -1,9 +1,19 @@
 // tslint:disable
+/**
+ * Author : Nidin Vinayakan <01@01alchemist.com>
+ */
 import { Terminal, Color } from '../common/utils';
-const path = require('path');
-const minimist = require('minimist');
-const spawn = require('child_process').spawn;
-const fs = require('fs');
+import * as path from 'path';
+import * as minimist from 'minimist';
+import * as child_process from 'child_process';
+import * as fs from 'fs';
+
+const { spawn } = child_process;
+
+interface Instance extends child_process.ChildProcess {
+    name: string;
+}
+
 const baseDir = process.cwd();
 let envPath = `${baseDir}/env/${process.env.USER}.env`;
 if (!fs.existsSync(envPath)) {
@@ -41,7 +51,7 @@ export default async function launch(options?) {
         );
     }
     const stdio = options.stdio !== undefined ? options.stdio : 'inherit';
-    const instance = spawn(cmds[0], cmds.slice(1), {
+    const instance = <Instance>spawn(cmds[0], cmds.slice(1), {
         stdio,
         cwd,
         shell: options.shell !== undefined ? options.shell : true,

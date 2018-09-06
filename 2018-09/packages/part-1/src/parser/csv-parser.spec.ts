@@ -1,3 +1,6 @@
+/**
+ * Author : Nidin Vinayakan <01@01alchemist.com>
+ */
 import * as fs from 'fs';
 import * as path from 'path';
 import { parse } from './csv-parser';
@@ -16,9 +19,25 @@ describe('CSV Parser test suit', () => {
         done();
     });
 
+    test('It should parse basic csv with space delimiter and float values', async done => {
+        const input = `8.8 73.3 56.09`;
+        const expected = [{ 0: 8.8, 1: 73.3, 2: 56.09 }];
+        const { rows: output } = await parse(input, { delimiter: ' ', columnMapping, emitObject: true });
+        expect(output).toEqual(expected);
+        done();
+    });
+
     test('It should parse basic csv with comma delimiter', async done => {
         const input = `2,4,99`;
         const expected = [{ 0: 2, 1: 4, 2: 99 }];
+        const { rows: output } = await parse(input, { delimiter: ',', columnMapping, emitObject: true });
+        expect(output).toEqual(expected);
+        done();
+    });
+
+    test('It should parse basic csv with comma delimiter and float values', async done => {
+        const input = `8.8,73.3,56.09`;
+        const expected = [{ 0: 8.8, 1: 73.3, 2: 56.09 }];
         const { rows: output } = await parse(input, { delimiter: ',', columnMapping, emitObject: true });
         expect(output).toEqual(expected);
         done();

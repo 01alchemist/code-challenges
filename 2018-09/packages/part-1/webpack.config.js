@@ -15,7 +15,7 @@ const entries = ['./src/index.ts'];
 let devServer;
 
 module.exports = {
-    entry: { index: isDevMode ? ['webpack/hot/poll?1000', ...entries] : entries },
+    entry: { index: isDevMode ? [...entries] : entries },
     target: 'web',
     node: {
         __dirname: true,

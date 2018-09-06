@@ -1,55 +1,70 @@
-import { isNode } from "./env";
-import { Color, HexColor } from "./color";
 /**
- * Created by n.vinayakan on 06.06.17.
+ * Author : Nidin Vinayakan <01@01alchemist.com>
  */
-const performance = global["performance"] || Date;
-export class Terminal {
+import { isNode } from './env';
+import { Color, HexColor } from './color';
 
+const performance = global['performance'] || Date;
+export class Terminal {
     static silent: boolean = false;
-    static history: string = "";
+    static history: string = '';
     static browserStyles = {
         text: HexColor[Color.DEFAULT_TEXT],
         background: HexColor[Color.DEFAULT_BG],
-        bold: false
+        bold: false,
     };
-    static browserBuffer: { text: string, style: string }[] = [];
-    static timeLogs: { name: string, startTime: number, finishTime?: number, finished: boolean }[] = [];
+    static browserBuffer: { text: string; style: string }[] = [];
+    static timeLogs: { name: string; startTime: number; finishTime?: number; finished: boolean }[] = [];
     static _level: number = process.env.TERMINAL_LOG_LEVEL ? parseInt(process.env.TERMINAL_LOG_LEVEL) : 3;
     static set level(value: string | number) {
         switch (value) {
             case -1:
-            case "none": Terminal._level = -1; break;
+            case 'none':
+                Terminal._level = -1;
+                break;
             case 0:
-            case "error": Terminal._level = 0; break;
+            case 'error':
+                Terminal._level = 0;
+                break;
             case 1:
-            case "warn": Terminal._level = 1; break;
+            case 'warn':
+                Terminal._level = 1;
+                break;
             case 2:
-            case "info": Terminal._level = 2; break;
+            case 'info':
+                Terminal._level = 2;
+                break;
             case 3:
-            case "log": Terminal._level = 3; break;
+            case 'log':
+                Terminal._level = 3;
+                break;
         }
     }
     static get level(): string | number {
         switch (Terminal._level) {
-            case -1: return "none";
-            case 0: return "error";
-            case 1: return "warn";
-            case 2: return "info";
-            case 3: return "log";
+            case -1:
+                return 'none';
+            case 0:
+                return 'error';
+            case 1:
+                return 'warn';
+            case 2:
+                return 'info';
+            case 3:
+                return 'log';
         }
         return 0;
     }
 
     static log(text) {
         if (Terminal._level > 2) {
-            Terminal.write(text + "\n");
+            Terminal.write(text + '\n');
         }
     }
 
     static write(text) {
-        if (typeof text !== "string") {
-            text = text === undefined ? "undefined" : JSON.stringify(text);
+        if (typeof text !== 'string') {
+            text = text === undefined ? 'undefined' : JSON.stringify(text);
         }
         Terminal.history += text;
         if (Terminal.silent) {
@@ -58,22 +73,23 @@ export class Terminal {
         if (isNode) {
             process.stdout.write(text);
         } else {
-            if (text === "\n") {
+            if (text === '\n') {
                 let texts: string[] = [];
                 let styles: string[] = [];
                 Terminal.browserBuffer.forEach(log => {
                     texts.push(log.text);
                     styles.push(log.style);
                 });
-                console.log.apply(null, [texts.join("")].concat(styles));
+                console.log.apply(null, [texts.join('')].concat(styles));
                 Terminal.browserBuffer = [];
             } else {
                 Terminal.browserBuffer.push({
                     text: `%c${text}`,
-                    style: `background: ${Terminal.browserStyles.background};` +
+                    style:
+                        `background: ${Terminal.browserStyles.background};` +
                         `color: ${Terminal.browserStyles.text};` +
-                        `font-weight: ${Terminal.browserStyles.bold ? "700" : "100"};`
-                })
+                        `font-weight: ${Terminal.browserStyles.bold ? '700' : '100'};`,
+                });
             }
         }
     }
@@ -87,7 +103,7 @@ export class Terminal {
     static timeEnd(name: string) {
         if (!Terminal.silent) {
             const finishTime: number = performance.now();
-            let log = Terminal.timeLogs.find(log => (log.name === name && log.finished === false));
+            let log = Terminal.timeLogs.find(log => log.name === name && log.finished === false);
             if (log !== undefined) {
                 const duration = finishTime - log.startTime;
                 log.finished = true;
@@ -102,7 +118,7 @@ export class Terminal {
     static setBGColor(color) {
         if (isNode) {
             if (process.stdout.isTTY) {
-                process.stdout.write(`\x1B[48;5;${color === null ? "" : color}m`);
+                process.stdout.write(`\x1B[48;5;${color === null ? '' : color}m`);
             }
         } else {
             Terminal.browserStyles.background = HexColor[color];
@@ -136,7 +152,7 @@ export class Terminal {
             }
         } else {
             Terminal.browserStyles.text = HexColor[Color.DEFAULT_TEXT];
-            Terminal.browserStyles.background = "none";
+            Terminal.browserStyles.background = 'none';
             Terminal.browserStyles.bold = false;
         }
     }
@@ -145,12 +161,12 @@ export class Terminal {
         if (Terminal._level > -1) {
             Terminal.setBGColor(Color.RED);
             Terminal.setTextColor(Color.WHITE);
-            Terminal.write(" ERROR ");
+            Terminal.write(' ERROR ');
             Terminal.clearColor();
             Terminal.setTextColor(Color.RED);
-            Terminal.write(" ");
+            Terminal.write(' ');
             Terminal.write(text);
-            Terminal.write("\n");
+            Terminal.write('\n');
             Terminal.clearColor();
         }
     }
@@ -159,12 +175,12 @@ export class Terminal {
         if (Terminal._level > 0) {
             Terminal.setBGColor(Color.ORANGE);
             Terminal.setTextColor(Color.WHITE);
-            Terminal.write(" WARNING ");
+            Terminal.write(' WARNING ');
             Terminal.clearColor();
             Terminal.setTextColor(Color.ORANGE);
-            Terminal.write(" ");
+            Terminal.write(' ');
             Terminal.write(text);
-            Terminal.write("\n");
+            Terminal.write('\n');
             Terminal.clearColor();
         }
     }
@@ -173,12 +189,12 @@ export class Terminal {
         if (Terminal._level > 2) {
             Terminal.setBGColor(Color.GREEN);
             Terminal.setTextColor(Color.WHITE);
-            Terminal.write(" SUCCESS ");
+            Terminal.write(' SUCCESS ');
             Terminal.clearColor();
             Terminal.setTextColor(Color.GREEN);
-            Terminal.write(" ");
+            Terminal.write(' ');
             Terminal.write(text);
-            Terminal.write("\n");
+            Terminal.write('\n');
             Terminal.clearColor();
         }
     }
@@ -187,12 +203,12 @@ export class Terminal {
         if (Terminal._level > 1) {
             Terminal.setBGColor(Color.BLUE);
             Terminal.setTextColor(Color.WHITE);
-            Terminal.write(" INFO ");
+            Terminal.write(' INFO ');
             Terminal.clearColor();
             Terminal.setTextColor(Color.BLUE);
-            Terminal.write(" ");
+            Terminal.write(' ');
             Terminal.write(text);
-            Terminal.write("\n");
+            Terminal.write('\n');
             Terminal.clearColor();
         }
     }
@@ -204,9 +220,9 @@ export class Terminal {
             if (title !== undefined) Terminal.write(` ${title} `);
             Terminal.clearColor();
             Terminal.setTextColor(bgColor);
-            Terminal.write(" ");
+            Terminal.write(' ');
             if (text !== undefined) Terminal.write(text);
-            Terminal.write("\n");
+            Terminal.write('\n');
             Terminal.clearColor();
         }
     }
@@ -215,7 +231,7 @@ export class Terminal {
         if (Terminal._level > 2) {
             Terminal.setTextColor(color);
             Terminal.write(text);
-            Terminal.write("\n");
+            Terminal.write('\n');
             Terminal.clearColor();
         }
     }
